@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Testing REST</title>
+
+		<style>
+			label, input, textarea, div, pre {
+				display: block;
+				width: 100%;
+			}
+
+			textarea { height: 300px }
+			pre { border: 1px solid black }
+
+		</style>
+	</head>
+
+	<body>
+		<label for="resource">Resource</label>
+		<input type="text" name="resource" value="http://localhost:56000/pepe" placeholder="http://localhost:56000/pepe">
+
+		<label for="value">Value</label>
+		<textarea name="value" placeholder="{a:1}">
+{
+	"testing": "hola",
+	"testang": 132425,
+	"testung": true,
+	"troll": {
+		"trall": {
+			"trill": true
+		}
+	}
+}
+		</textarea>
+
+		<button id="btn-get">GET</button>
+		<button id="btn-post">POST</button>
+		<button id="btn-put">PUT</button>
+		<button id="btn-delete">DELETE</button>
+
+		<div id="status"></div>
+		<pre id="response"></pre>
+
+		<script type="text/javascript">
+
+			function $(selector) {
+				return document.querySelector(selector);
+			}
+
+			function request(method, url, data) {
+				var xhr = new XMLHttpRequest();
+
+				xhr.onreadystatechange = function() {
+					if (xhr.readyState == 4) {
+						$('#status').innerHTML = xhr.status;
+						$('#response').innerHTML = xhr.responseText;
+					}
+				};
+
+				xhr.open(method, url);
+
+				if (data)
+					xhr.setRequestHeader('Content-Type', 'application/json');
+
+				xhr.send(data || null)
+			}
+
+			function getBody() {
+				var body = $('[name=value]').value;
+
+				try {
+					JSON.parse(body);
+				} catch(err) {
+					alert('Invalid JSON');
+					throw err;
+				}
+
+				return body;
+			}
+
+			$('#btn-get').onclick = function() {
+				request('GET', $('[name=resource]').value);
+			};
+
+			$('#btn-post').onclick = function() {
+				request('POST', $('[name=resource]').value, getBody());
+			};
+
+			$('#btn-put').onclick = function() {
+				request('PUT', $('[name=resource]').value, getBody());
+			};
+
+			$('#btn-delete').onclick = function() {
+				request('DELETE', $('[name=resource]').value);
+			};
+
+		</script>
+	</body>
+</html>

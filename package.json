@@ -1,0 +1,9 @@
+{
+  "name": "lorelei.rest",
+  "description": "A very simple rest server",
+  "author": "A. Matías Quezada <amatiasq@gmail.com>",
+  "dependencies": {
+    "express": "~3.3.4",
+  },
+  "engine": "node 0.10.13"
+}

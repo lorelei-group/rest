@@ -1,0 +1,5 @@
+{
+	"port": 56000,
+	"allowOrigin": "*",
+	"allowMethods": "GET,POST,PUT,DELETE,HEAD,OPTIONS"
+}
